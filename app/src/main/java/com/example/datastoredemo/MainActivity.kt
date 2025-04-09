@@ -4,6 +4,7 @@ package com.example.datastoredemo
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.*
@@ -76,6 +77,8 @@ fun DataStoreDemoApp(isDarkMode: Boolean, fontSize: Long) {
     }
 }
 
+// https://developer.android.com/develop/ui/compose/components/datepickers
+// This was the resource used for the DatePicker composable
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DatePickerModal(
@@ -88,7 +91,8 @@ fun DatePickerModal(
         onDismissRequest = onDismiss,
         confirmButton = {
             TextButton(onClick = {
-                onDateSelected(datePickerState.selectedDateMillis)
+                onDateSelected(datePickerState.selectedDateMillis?.plus(0L))
+                // day difference due to mismatch between recorded time and actual time...
                 onDismiss()
             }) {
                 Text("OK")
